@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Free QR Code Generator — No Signup, No Watermark | Toolbench</title>
+<meta name="description" content="Generate a QR code from any link, text, or contact info instantly. Free, no signup, no watermark, downloads as PNG. Works entirely in your browser.">
+<meta name="keywords" content="free QR code generator, QR code maker, generate QR code online, no signup QR code">
+<link rel="canonical" href="https://example.com/qr-generator.html">
+<meta name="robots" content="index, follow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "QR Code Generator",
+  "applicationCategory": "Utility",
+  "operatingSystem": "Any",
+  "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}
+}
+</script>
+<style>
+  #qr-canvas-wrap{
+    display:flex;align-items:center;justify-content:center;
+    background:repeating-conic-gradient(#fff 0% 25%, #F5F7FA 0% 50%) 0 0/20px 20px;
+    border:1.5px dashed var(--paper-line);border-radius:10px;
+    padding:24px;min-height:280px;
+  }
+  #qr-canvas-wrap img, #qr-canvas-wrap canvas{border-radius:6px;}
+  .placeholder{font-family:var(--mono);font-size:0.85rem;color:var(--ink-soft);text-align:center;}
+  .swatch-row{display:flex;gap:10px;align-items:center;}
+  input[type=color]{width:44px;height:44px;padding:2px;border-radius:8px;border:1.5px solid var(--paper-line);cursor:pointer;margin-bottom:16px;}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="wrap">
+    <a href="index.html" class="brand"><span class="dot"></span>Toolbench</a>
+    <nav class="nav-links">
+      <a href="qr-generator.html">QR Generator</a>
+      <a href="resume-builder.html">Resume Builder</a>
+    </nav>
+  </div>
+</header>
+
+<section class="tool-header">
+  <div class="wrap">
+    <span class="tag">TOOL — 01</span>
+    <h1>QR Code Generator</h1>
+    <p>Type or paste a link, message, or phone number. Your QR code updates live, and download is instant — nothing is ever sent to a server.</p>
+  </div>
+</section>
+
+<section class="wrap">
+  <div class="grid-2">
+
+    <div class="panel">
+      <label for="qr-text">Text or URL</label>
+      <textarea id="qr-text" placeholder="https://example.com or any text">https://example.com</textarea>
+
+      <div class="field-row">
+        <div>
+          <label for="qr-size">Size</label>
+          <select id="qr-size">
+            <option value="200">Small — 200px</option>
+            <option value="300" selected>Medium — 300px</option>
+            <option value="500">Large — 500px</option>
+          </select>
+        </div>
+        <div>
+          <label for="qr-color">Color</label>
+          <input type="color" id="qr-color" value="#151B2B">
+        </div>
+      </div>
+
+      <button class="btn amber" id="download-btn" style="width:100%;justify-content:center;">Download PNG</button>
+    </div>
+
+    <div class="panel">
+      <label>Preview</label>
+      <div id="qr-canvas-wrap">
+        <p class="placeholder" id="qr-placeholder">Your QR code<br>will appear here</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="wrap" style="padding-bottom:60px;">
+  <p class="section-label">Good to know</p>
+  <div class="panel">
+    <p style="margin:0;color:var(--ink-soft);font-size:0.95rem;">
+      This tool generates the QR code directly in your browser using JavaScript — the text you enter never leaves your device or touches a server.
+      Codes are static (they encode your text permanently), so they work forever with no expiry, no login, and no tracking.
+    </p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p>Toolbench — built for people who just want the task done.</p>
+    <p><a href="index.html">← All tools</a></p>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script>
+  const textEl = document.getElementById('qr-text');
+  const sizeEl = document.getElementById('qr-size');
+  const colorEl = document.getElementById('qr-color');
+  const wrap = document.getElementById('qr-canvas-wrap');
+  const placeholder = document.getElementById('qr-placeholder');
+  let qr = null;
+
+  function render(){
+    const text = textEl.value.trim();
+    if(!text){
+      wrap.innerHTML = '';
+      wrap.appendChild(placeholder);
+      return;
+    }
+    wrap.innerHTML = '';
+    const size = parseInt(sizeEl.value, 10);
+    qr = new QRCode(wrap, {
+      text: text,
+      width: size,
+      height: size,
+      colorDark: colorEl.value,
+      colorLight: '#ffffff',
+      correctLevel: QRCode.CorrectLevel.H
+    });
+  }
+
+  textEl.addEventListener('input', render);
+  sizeEl.addEventListener('change', render);
+  colorEl.addEventListener('input', render);
+
+  document.getElementById('download-btn').addEventListener('click', () => {
+    const img = wrap.querySelector('img');
+    const canvas = wrap.querySelector('canvas');
+    const src = img ? img.src : (canvas ? canvas.toDataURL('image/png') : null);
+    if(!src){ alert('Enter some text first.'); return; }
+    const a = document.createElement('a');
+    a.href = src;
+    a.download = 'qrcode.png';
+    a.click();
+  });
+
+  render();
+</script>
+
+</body>
+</html>
