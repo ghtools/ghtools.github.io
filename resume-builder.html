@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Free Resume Builder — Create a CV Online, Download as PDF | Toolbench</title>
+<meta name="description" content="Build a clean one-page resume in your browser. Fill a simple form, see a live preview, download as PDF. Free, no signup, no watermark.">
+<meta name="keywords" content="free resume builder, free CV maker, online resume builder, download resume PDF, no signup resume">
+<link rel="canonical" href="https://example.com/resume-builder.html">
+<meta name="robots" content="index, follow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Source+Serif+4:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Resume Builder",
+  "applicationCategory": "Utility",
+  "operatingSystem": "Any",
+  "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}
+}
+</script>
+<style>
+  .builder-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:start;}
+  @media (max-width:900px){.builder-grid{grid-template-columns:1fr;}}
+  .form-scroll{max-height:calc(100vh - 40px);overflow-y:auto;position:sticky;top:80px;padding-right:6px;}
+
+  .entry-block{border-top:1px dashed var(--paper-line);padding-top:16px;margin-top:16px;}
+  .entry-block:first-of-type{border-top:none;padding-top:0;margin-top:0;}
+  .remove-btn{font-family:var(--mono);font-size:0.75rem;color:#B3261E;background:none;border:none;cursor:pointer;padding:0;margin-bottom:10px;}
+  .add-btn{font-family:var(--mono);font-size:0.82rem;color:var(--blue-deep);background:#EEF2FF;border:1px solid #C9D5FF;border-radius:8px;padding:9px 14px;cursor:pointer;width:100%;margin-top:4px;}
+
+  /* Resume preview */
+  #resume-preview{
+    background:#fff;border:1px solid var(--paper-line);border-radius:var(--radius);
+    padding:44px 40px;font-family:'Source Serif 4', Georgia, serif;color:#1a1a1a;
+    min-height:600px;
+  }
+  #resume-preview h2{font-size:1.7rem;margin:0 0 2px;letter-spacing:-0.01em;}
+  #resume-preview .r-contact{font-family:var(--sans);font-size:0.85rem;color:#555;margin-bottom:18px;}
+  #resume-preview .r-section-title{
+    font-family:var(--sans);font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;
+    color:#B3261E;border-bottom:1.5px solid #1a1a1a;padding-bottom:3px;margin:22px 0 10px;
+  }
+  #resume-preview .r-summary{font-size:0.95rem;line-height:1.55;}
+  #resume-preview .r-item{margin-bottom:12px;}
+  #resume-preview .r-item-top{display:flex;justify-content:space-between;font-family:var(--sans);font-weight:600;font-size:0.92rem;}
+  #resume-preview .r-item-sub{font-family:var(--sans);font-size:0.82rem;color:#555;margin-bottom:3px;}
+  #resume-preview .r-item p{font-size:0.9rem;margin:2px 0 0;line-height:1.5;}
+  #resume-preview .r-skills{font-size:0.9rem;font-family:var(--sans);}
+
+  @media print{
+    body *{visibility:hidden;}
+    #resume-preview, #resume-preview *{visibility:visible;}
+    #resume-preview{position:absolute;top:0;left:0;width:100%;border:none;border-radius:0;padding:20px 30px;}
+  }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="wrap">
+    <a href="index.html" class="brand"><span class="dot"></span>Toolbench</a>
+    <nav class="nav-links">
+      <a href="qr-generator.html">QR Generator</a>
+      <a href="resume-builder.html">Resume Builder</a>
+    </nav>
+  </div>
+</header>
+
+<section class="tool-header">
+  <div class="wrap">
+    <span class="tag">TOOL — 02</span>
+    <h1>Resume Builder</h1>
+    <p>Fill in the form on the left — the preview on the right updates as you type. When it looks right, download it as a PDF.</p>
+  </div>
+</section>
+
+<section class="wrap" style="padding-bottom:60px;">
+  <div class="builder-grid">
+
+    <div class="form-scroll">
+      <div class="panel">
+        <p class="section-label" style="margin-top:0;">Basics</p>
+        <div class="field-row">
+          <div><label>Full name</label><input type="text" id="f-name" value="Aisha Rahman"></div>
+          <div><label>Title</label><input type="text" id="f-title" value="Product Designer"></div>
+        </div>
+        <div class="field-row">
+          <div><label>Email</label><input type="text" id="f-email" value="aisha@email.com"></div>
+          <div><label>Phone</label><input type="text" id="f-phone" value="+966 5X XXX XXXX"></div>
+        </div>
+        <label>Location</label>
+        <input type="text" id="f-location" value="Riyadh, Saudi Arabia">
+
+        <p class="section-label">Summary</p>
+        <textarea id="f-summary">Product designer with 5 years' experience shipping consumer apps end to end, from research through to polished UI.</textarea>
+
+        <p class="section-label">Experience</p>
+        <div id="exp-list"></div>
+        <button class="add-btn" id="add-exp">+ Add work experience</button>
+
+        <p class="section-label">Education</p>
+        <div id="edu-list"></div>
+        <button class="add-btn" id="add-edu">+ Add education</button>
+
+        <p class="section-label">Skills</p>
+        <label>Comma-separated</label>
+        <input type="text" id="f-skills" value="Figma, User Research, Prototyping, Design Systems, HTML/CSS">
+      </div>
+
+      <button class="btn amber" id="print-btn" style="width:100%;justify-content:center;">Download as PDF</button>
+    </div>
+
+    <div>
+      <div id="resume-preview">
+        <h2 id="p-name"></h2>
+        <p class="r-contact" id="p-contact"></p>
+        <div class="r-section-title">Summary</div>
+        <p class="r-summary" id="p-summary"></p>
+        <div class="r-section-title">Experience</div>
+        <div id="p-exp"></div>
+        <div class="r-section-title">Education</div>
+        <div id="p-edu"></div>
+        <div class="r-section-title">Skills</div>
+        <p class="r-skills" id="p-skills"></p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p>Toolbench — built for people who just want the task done.</p>
+    <p><a href="index.html">← All tools</a></p>
+  </div>
+</footer>
+
+<script>
+const expList = document.getElementById('exp-list');
+const eduList = document.getElementById('edu-list');
+
+function expBlock(role, company, dates, desc){
+  const div = document.createElement('div');
+  div.className = 'entry-block';
+  div.innerHTML = `
+    <button class="remove-btn" onclick="this.parentElement.remove(); render();">✕ remove</button>
+    <div class="field-row">
+      <div><label>Role</label><input type="text" class="exp-role" value="${role}"></div>
+      <div><label>Company</label><input type="text" class="exp-company" value="${company}"></div>
+    </div>
+    <label>Dates</label>
+    <input type="text" class="exp-dates" value="${dates}">
+    <label>Description</label>
+    <textarea class="exp-desc">${desc}</textarea>
+  `;
+  div.querySelectorAll('input,textarea').forEach(el => el.addEventListener('input', render));
+  expList.appendChild(div);
+}
+
+function eduBlock(school, degree, dates){
+  const div = document.createElement('div');
+  div.className = 'entry-block';
+  div.innerHTML = `
+    <button class="remove-btn" onclick="this.parentElement.remove(); render();">✕ remove</button>
+    <div class="field-row">
+      <div><label>School</label><input type="text" class="edu-school" value="${school}"></div>
+      <div><label>Degree</label><input type="text" class="edu-degree" value="${degree}"></div>
+    </div>
+    <label>Dates</label>
+    <input type="text" class="edu-dates" value="${dates}">
+  `;
+  div.querySelectorAll('input').forEach(el => el.addEventListener('input', render));
+  eduList.appendChild(div);
+}
+
+document.getElementById('add-exp').addEventListener('click', () => { expBlock('Role', 'Company', '2023 — Present', 'What you did and the impact it had.'); render(); });
+document.getElementById('add-edu').addEventListener('click', () => { eduBlock('University', 'Degree', '2018 — 2022'); render(); });
+
+// seed with one example each
+expBlock('Senior Product Designer', 'Nova Labs', '2022 — Present', 'Led design for the core onboarding flow, increasing activation by 18%.');
+eduBlock('King Saud University', 'B.Sc. Design', '2016 — 2020');
+
+function render(){
+  document.getElementById('p-name').textContent = document.getElementById('f-name').value;
+  const contact = [document.getElementById('f-title').value, document.getElementById('f-location').value, document.getElementById('f-email').value, document.getElementById('f-phone').value].filter(Boolean).join('  ·  ');
+  document.getElementById('p-contact').textContent = contact;
+  document.getElementById('p-summary').textContent = document.getElementById('f-summary').value;
+
+  const expOut = document.getElementById('p-exp');
+  expOut.innerHTML = '';
+  document.querySelectorAll('#exp-list .entry-block').forEach(block => {
+    const role = block.querySelector('.exp-role').value;
+    const company = block.querySelector('.exp-company').value;
+    const dates = block.querySelector('.exp-dates').value;
+    const desc = block.querySelector('.exp-desc').value;
+    const item = document.createElement('div');
+    item.className = 'r-item';
+    item.innerHTML = `<div class="r-item-top"><span>${role} — ${company}</span><span>${dates}</span></div><p>${desc}</p>`;
+    expOut.appendChild(item);
+  });
+
+  const eduOut = document.getElementById('p-edu');
+  eduOut.innerHTML = '';
+  document.querySelectorAll('#edu-list .entry-block').forEach(block => {
+    const school = block.querySelector('.edu-school').value;
+    const degree = block.querySelector('.edu-degree').value;
+    const dates = block.querySelector('.edu-dates').value;
+    const item = document.createElement('div');
+    item.className = 'r-item';
+    item.innerHTML = `<div class="r-item-top"><span>${degree} — ${school}</span><span>${dates}</span></div>`;
+    eduOut.appendChild(item);
+  });
+
+  document.getElementById('p-skills').textContent = document.getElementById('f-skills').value;
+}
+
+document.querySelectorAll('#f-name,#f-title,#f-email,#f-phone,#f-location,#f-summary,#f-skills').forEach(el => el.addEventListener('input', render));
+document.getElementById('print-btn').addEventListener('click', () => window.print());
+
+render();
+</script>
+
+</body>
+</html>
+  
