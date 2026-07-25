@@ -90,6 +90,7 @@ section{position:relative;}
   position:fixed;inset:0;z-index:-1;
   background:var(--grad-mesh), var(--bg);
   transition:background-color .35s var(--ease);
+  pointer-events:none;
 }
 
 /* ---------- Top nav ---------- */
@@ -215,6 +216,8 @@ section{position:relative;}
   border:1px solid var(--border);box-shadow:var(--shadow-md);
   display:flex;align-items:center;justify-content:center;
   animation:float 6s ease-in-out infinite;
+  pointer-events:none;
+  z-index:1;
 }
 .float-1{top:-18px;right:10%;width:56px;height:56px;animation-delay:0s;}
 .float-2{bottom:6%;left:-24px;width:64px;height:64px;animation-delay:1.4s;}
@@ -441,11 +444,14 @@ footer{padding:60px 0 30px;border-top:1px solid var(--border);margin-top:40px;}
   .newsletter-panel{padding:40px 22px;}
 }
 
-/* mobile menu */
-.mobile-menu{
-  display:none;position:fixed;inset:0;z-index:60;
-  background:var(--bg);padding:100px 24px 40px;flex-direction:column;gap:6px;
+/* ---------- Tool page shell (QR / Resume builder) ---------- */
+.tool-hero{padding:52px 0 8px;}
+.tool-hero h1{
+  font-family:var(--font-display);font-weight:700;font-size:clamp(2rem,4vw,2.8rem);
+  letter-spacing:-0.03em;margin:18px 0 10px;
 }
-.mobile-menu.open{display:flex;}
-.mobile-menu a{font-size:1.3rem;font-family:var(--font-display);padding:14px 0;border-bottom:1px solid var(--border);}
-.mobile-menu-close{position:absolute;top:24px;right:24px;width:40px;height:40px;border:1px solid var(--border);border-radius:50%;display:flex;align-items:center;justify-content:center;}
+.tool-hero p{color:var(--ink-soft);max-width:58ch;font-size:1.05rem;}
+
+.glass-panel{
+  background:var(--surface);backdrop-filter:blur(16px) saturate(160%);-webkit-backdrop-filter:blur(16px) saturate(160%);
+  border:1px solid var(--border);bord
