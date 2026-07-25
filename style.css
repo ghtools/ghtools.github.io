@@ -449,4 +449,3 @@ footer{padding:60px 0 30px;border-top:1px solid var(--border);margin-top:40px;}
 .mobile-menu.open{display:flex;}
 .mobile-menu a{font-size:1.3rem;font-family:var(--font-display);padding:14px 0;border-bottom:1px solid var(--border);}
 .mobile-menu-close{position:absolute;top:24px;right:24px;width:40px;height:40px;border:1px solid var(--border);border-radius:50%;display:flex;align-items:center;justify-content:center;}
-   
