@@ -160,6 +160,10 @@
   function render(){
     const text = textEl.value.trim();
     if(!text){ wrap.innerHTML = ''; wrap.appendChild(placeholder); return; }
+    if (typeof QRCode === 'undefined') {
+      wrap.innerHTML = '<p class="qr-placeholder">Couldn\'t load the QR library — check your internet connection and reload the page.</p>';
+      return;
+    }
     wrap.innerHTML = '';
     new QRCode(wrap, {
       text: text,
@@ -178,7 +182,7 @@
     const img = wrap.querySelector('img');
     const canvas = wrap.querySelector('canvas');
     const src = img ? img.src : (canvas ? canvas.toDataURL('image/png') : null);
-    if(!src){ alert('Enter some text first.'); return; }
+    if(!src){ alert('No QR code to download yet — type some text above, and make sure it finished loading.'); return; }
     const a = document.createElement('a');
     a.href = src; a.download = 'qrcode.png'; a.click();
   });
@@ -186,5 +190,4 @@
   render();
 </script>
 </body>
-                                                                                          </html>
-                                                                                          
+</html>
