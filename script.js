@@ -34,9 +34,10 @@
     mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => mobileMenu.classList.remove('open')));
   }
 
-  /* ---------- Scroll reveal ---------- */
+  /* ---------- Scroll reveal (progressive enhancement) ---------- */
   const revealEls = document.querySelectorAll('.reveal');
   if ('IntersectionObserver' in window) {
+    revealEls.forEach(el => el.classList.add('will-animate'));
     const io = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -46,8 +47,6 @@
       });
     }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
     revealEls.forEach(el => io.observe(el));
-  } else {
-    revealEls.forEach(el => el.classList.add('is-visible'));
   }
 
   /* ---------- FAQ accordion ---------- */
@@ -148,3 +147,4 @@
     sections.forEach(s => navIo.observe(s));
   }
 })();
+    
