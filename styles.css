@@ -277,9 +277,11 @@ section{position:relative;}
 
 section.pad{padding:96px 0;}
 
-/* reveal on scroll */
-.reveal{opacity:0;transform:translateY(24px);transition:opacity .7s var(--ease), transform .7s var(--ease);}
-.reveal.is-visible{opacity:1;transform:translateY(0);}
+/* reveal on scroll — visible by default; JS adds .will-animate for the fade-in effect.
+   This guarantees content is never accidentally hidden if JS fails to run. */
+.reveal{opacity:1;transform:none;}
+.reveal.will-animate{opacity:0;transform:translateY(24px);transition:opacity .7s var(--ease), transform .7s var(--ease);}
+.reveal.will-animate.is-visible{opacity:1;transform:translateY(0);}
 
 /* ---------- Tool cards ---------- */
 .tool-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
@@ -450,8 +452,4 @@ footer{padding:60px 0 30px;border-top:1px solid var(--border);margin-top:40px;}
   font-family:var(--font-display);font-weight:700;font-size:clamp(2rem,4vw,2.8rem);
   letter-spacing:-0.03em;margin:18px 0 10px;
 }
-.tool-hero p{color:var(--ink-soft);max-width:58ch;font-size:1.05rem;}
-
-.glass-panel{
-  background:var(--surface);backdrop-filter:blur(16px) saturate(160%);-webkit-backdrop-filter:blur(16px) saturate(160%);
-  border:1px solid var(--border);bord
+.tool-hero p{color:var(--ink-soft);max
