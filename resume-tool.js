@@ -329,38 +329,42 @@
     }
 
     const filename = `resume-${slugify(f('f-name').value)}.pdf`;
-    const prevTransform = zoomInner.style.transform;
-    const prevTransition = zoomInner.style.transition;
 
-    // Neutralize zoom + its CSS transition so html2canvas captures the
-    // element at true 100% scale, not mid-animation or scaled down.
-    zoomInner.style.transition = 'none';
-    zoomInner.style.transform = 'none';
-    // Force a reflow so the browser commits the style change before capture.
-    void zoomInner.offsetHeight;
-    doc.scrollIntoView({ block: 'center' });
+    // html2canvas cannot reliably render elements nested inside an ancestor
+    // with backdrop-filter (our glass panels use this) — it often produces
+    // a blank capture. Fix: clone the resume into a clean, isolated
+    // container with no blur/transform ancestors, capture THAT, then remove it.
+    const clone = doc.cloneNode(true);
+    clone.id = 'resume-pdf-clone';
+    clone.style.position = 'fixed';
+    clone.style.top = '0';
+    clone.style.left = '-99999px';
+    clone.style.transform = 'none';
+    clone.style.width = doc.offsetWidth ? doc.offsetWidth + 'px' : '800px';
+    clone.style.background = '#ffffff';
+    clone.style.zIndex = '-1';
+    document.body.appendChild(clone);
 
     const opts = {
       margin: [10, 10, 10, 10],
       filename: filename,
       image: { type: 'jpeg', quality: 0.98 },
-      html2canvas: { scale: 1.5, useCORS: true, backgroundColor: '#ffffff', windowWidth: doc.scrollWidth, windowHeight: doc.scrollHeight },
+      html2canvas: { scale: 1.5, useCORS: true, backgroundColor: '#ffffff' },
       jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
     };
 
-    // Give the browser a couple of frames to finish layout/paint
-    // before handing the element to html2canvas.
+    // Give the browser a couple of frames to lay out & paint the clone
+    // before handing it to html2canvas.
     await new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r)));
 
     try {
-      await html2pdf().set(opts).from(doc).save();
+      await html2pdf().set(opts).from(clone).save();
       flashSuccess(btn, 'Downloaded ✓');
       toast('Resume PDF downloaded.', 'success');
     } catch (e) {
       toast('PDF generation failed. Try again, or use a smaller photo.', 'error');
     } finally {
-      zoomInner.style.transition = prevTransition;
-      zoomInner.style.transform = prevTransform;
+      clone.remove();
       setLoading(btn, false);
     }
   }
