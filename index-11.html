@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GH-Tools | Free Online Tools, No Signup</title>
+<meta name="description" content="Free browser-based tools from GH-Tools. Create QR codes and professional resumes without signup, watermarks or uploads.">
+<meta name="keywords" content="free online tools, free QR code generator, free resume builder, CV maker, no signup tools">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://ghtools.github.io/">
+<meta name="theme-color" content="#111827">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap');
+:root{--ink:#101828;--muted:#667085;--bg:#f7f8fc;--card:#fff;--line:#e7eaf0;--purple:#5b5cf0;--blue:#2f80ed;--cyan:#18b9e8;--shadow:0 20px 60px rgba(16,24,40,.10)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font-family:'DM Sans',system-ui,sans-serif;line-height:1.55}a{text-decoration:none;color:inherit}button{font:inherit}
+.wrap{width:min(1160px,calc(100% - 36px));margin:auto}
+.nav{position:sticky;top:0;z-index:50;background:rgba(247,248,252,.82);backdrop-filter:blur(18px);border-bottom:1px solid rgba(231,234,240,.8)}
+.nav-inner{height:70px;display:flex;align-items:center;gap:28px}
+.brand{display:flex;align-items:center;gap:10px;font:800 19px 'Plus Jakarta Sans'}
+.logo{width:35px;height:35px;border-radius:11px;background:linear-gradient(135deg,var(--purple),var(--cyan));display:grid;place-items:center;color:#fff;box-shadow:0 9px 25px rgba(91,92,240,.25)}
+.logo svg{width:19px}.links{display:flex;gap:4px;margin-left:auto}.links a{font-size:13px;color:#667085;padding:9px 12px;border-radius:9px}.links a:hover{background:#fff;color:var(--ink)}
+.nav-cta{background:var(--ink);color:#fff;border-radius:10px;padding:10px 14px;font-size:13px;font-weight:700}
+.hero{padding:78px 0 54px;text-align:center;position:relative;overflow:hidden}
+.glow{position:absolute;width:540px;height:540px;border-radius:50%;filter:blur(70px);opacity:.18;pointer-events:none;background:linear-gradient(135deg,var(--purple),var(--cyan));left:50%;top:-280px;transform:translateX(-50%)}
+.badge{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);background:#fff;padding:7px 12px;border-radius:999px;font-size:12px;font-weight:600;color:#667085;box-shadow:0 5px 18px rgba(16,24,40,.05)}
+.dot{width:8px;height:8px;border-radius:50%;background:linear-gradient(135deg,var(--purple),var(--cyan))}
+h1{font:800 clamp(40px,6vw,70px)/1.02 'Plus Jakarta Sans';letter-spacing:-.045em;max-width:850px;margin:22px auto 18px}
+.grad{background:linear-gradient(135deg,var(--purple),var(--blue),var(--cyan));-webkit-background-clip:text;background-clip:text;color:transparent}
+.lead{max-width:650px;margin:0 auto;color:var(--muted);font-size:17px}
+.hero-actions{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:28px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:13px 19px;border-radius:11px;font-size:14px;font-weight:700}
+.btn-primary{background:linear-gradient(135deg,var(--purple),var(--blue));color:#fff;box-shadow:0 14px 30px rgba(91,92,240,.25)}
+.btn-light{background:#fff;border:1px solid var(--line)}
+.trust{margin-top:20px;color:#98a2b3;font-size:12px}
+.tools{padding:40px 0 95px}.section-head{text-align:center;max-width:650px;margin:0 auto 30px}.eyebrow{color:var(--purple);font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}.section-head h2{font:800 30px 'Plus Jakarta Sans';letter-spacing:-.03em;margin:8px 0}.section-head p{color:var(--muted);margin:0}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.tool{background:#fff;border:1px solid var(--line);border-radius:22px;padding:28px;box-shadow:0 10px 30px rgba(16,24,40,.05);position:relative;overflow:hidden}
+.tool:before{content:"";position:absolute;inset:0 0 auto;height:4px;background:linear-gradient(90deg,var(--purple),var(--cyan))}
+.tool-top{display:flex;align-items:center;gap:14px}.tool-icon{width:48px;height:48px;border-radius:14px;background:#f0f2ff;color:var(--purple);display:grid;place-items:center}.tool-icon svg{width:25px}.tool h3{font:800 20px 'Plus Jakarta Sans';margin:0}.tool p{color:var(--muted);font-size:14px;margin:16px 0 22px}
+.chips{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:22px}.chip{font-size:11px;color:#475467;background:#f4f5f8;padding:6px 8px;border-radius:7px}
+.feature-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.feature{background:#fff;border:1px solid var(--line);border-radius:16px;padding:20px}.feature b{display:block;font-size:14px;margin-bottom:5px}.feature span{font-size:12px;color:var(--muted)}
+.how{padding:85px 0;background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.step{padding:24px;border:1px solid var(--line);border-radius:16px}.num{width:28px;height:28px;border-radius:9px;background:#eef0ff;color:var(--purple);display:grid;place-items:center;font-weight:800;font-size:12px;margin-bottom:15px}
+.faq{padding:85px 0}.faq-grid{max-width:760px;margin:auto}.faq-item{border-bottom:1px solid var(--line);padding:18px 0}.faq-item summary{cursor:pointer;font-weight:700;font-size:14px}.faq-item p{color:var(--muted);font-size:13px;margin:12px 0 0}
+.cta{padding:70px 0}.cta-box{background:#111827;color:#fff;border-radius:26px;padding:46px;text-align:center;position:relative;overflow:hidden}.cta-box:after{content:"";position:absolute;width:330px;height:330px;border-radius:50%;background:rgba(91,92,240,.35);filter:blur(70px);right:-120px;top:-170px}.cta-box h2{font:800 30px 'Plus Jakarta Sans';margin:0 0 10px;position:relative;z-index:1}.cta-box p{color:#c7ceda;position:relative;z-index:1}.cta-box .btn{position:relative;z-index:1}
+footer{border-top:1px solid var(--line);padding:26px 0;color:#98a2b3;font-size:12px}.footer-inner{display:flex;justify-content:space-between;gap:15px}
+@media(max-width:760px){.links{display:none}.nav-cta{margin-left:auto}.hero{padding:58px 0 42px}.lead{font-size:15px}.grid,.feature-grid,.steps{grid-template-columns:1fr}.tool{padding:22px}.cta-box{padding:35px 22px}.footer-inner{flex-direction:column}.wrap{width:min(100% - 24px,1160px)}}
+</style>
+</head>
+<body>
+<header class="nav"><div class="wrap nav-inner">
+<a class="brand" href="index.html"><span class="logo"><svg viewBox="0 0 24 24" fill="none"><path d="M4 4h6v6H4V4Zm10 0h6v6h-6V4ZM4 14h6v6H4v-6Zm10 0h2v2h-2v-2Zm0 4h2v2h-2v-2Zm-4-4h2v6h-2v-6Z" fill="currentColor"/></svg></span>GH-Tools</a>
+<nav class="links"><a href="#tools">Tools</a><a href="#why">Why us</a><a href="#how">How it works</a><a href="#faq">FAQ</a></nav>
+<a class="nav-cta" href="resume-builder.html">Build a Resume</a>
+</div></header>
+
+<main>
+<section class="hero"><div class="glow"></div><div class="wrap">
+<span class="badge"><i class="dot"></i> Free forever · No signup · No watermark</span>
+<h1>Simple tools that <span class="grad">get the job done.</span></h1>
+<p class="lead">Create professional resumes and QR codes directly in your browser. Your files stay on your device and you can start instantly.</p>
+<div class="hero-actions"><a class="btn btn-primary" href="resume-builder.html">Build a Professional Resume →</a><a class="btn btn-light" href="qr-generator.html">Create a QR Code</a></div>
+<div class="trust">Fast · Mobile friendly · No account required</div>
+</div></section>
+
+<section class="tools" id="tools"><div class="wrap">
+<div class="section-head"><div class="eyebrow">Tools</div><h2>Two useful tools. Zero clutter.</h2><p>No duplicate builders or confusing dashboards. Pick the tool you need and get straight to work.</p></div>
+<div class="grid">
+<article class="tool"><div class="tool-top"><div class="tool-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 3h9l3 3v15H6z"/><path d="M9 13h6M9 17h6M9 9h3"/></svg></div><h3>Professional Resume Builder</h3></div><p>Build a polished, ATS-friendly CV with a live A4 preview, multiple templates, work experience, education, skills, projects and certifications.</p><div class="chips"><span class="chip">A4 preview</span><span class="chip">ATS friendly</span><span class="chip">Autosave</span><span class="chip">PDF</span><span class="chip">No signup</span></div><a class="btn btn-primary" href="resume-builder.html">Open Resume Builder</a></article>
+<article class="tool"><div class="tool-top"><div class="tool-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h6v6H4zM14 4h6v6h-6zM4 14h6v6H4zM14 14h2v2h-2zM18 14h2v6h-6v-2h4zM14 18h2v2h-2z"/></svg></div><h3>QR Code Generator</h3></div><p>Create QR codes for links, text and other useful content with a clean interface designed for phone and desktop users.</p><div class="chips"><span class="chip">Free</span><span class="chip">No signup</span><span class="chip">Instant</span><span class="chip">Mobile friendly</span></div><a class="btn btn-light" href="qr-generator.html">Open QR Generator</a></article>
+</div>
+</div></section>
+
+<section id="why" class="tools" style="padding-top:0"><div class="wrap">
+<div class="section-head"><div class="eyebrow">Why GH-Tools</div><h2>Built around the things users actually need.</h2></div>
+<div class="feature-grid"><div class="feature"><b>No signup</b><span>Start using the tools immediately without creating an account.</span></div><div class="feature"><b>No watermark</b><span>Your resume and generated files are designed to stay clean and professional.</span></div><div class="feature"><b>Browser-first</b><span>Core work happens in your browser instead of sending your content to a server.</span></div></div>
+</div></section>
+
+<section class="how" id="how"><div class="wrap"><div class="section-head"><div class="eyebrow">How it works</div><h2>Three simple steps.</h2></div>
+<div class="steps"><div class="step"><div class="num">1</div><b>Choose a tool</b><p style="color:#667085;font-size:13px">Open the resume builder or QR generator.</p></div><div class="step"><div class="num">2</div><b>Enter your details</b><p style="color:#667085;font-size:13px">Everything updates instantly as you work.</p></div><div class="step"><div class="num">3</div><b>Save your result</b><p style="color:#667085;font-size:13px">Save the finished resume as PDF or download your QR code.</p></div></div>
+</div></section>
+
+<section class="faq" id="faq"><div class="wrap"><div class="section-head"><div class="eyebrow">FAQ</div><h2>Questions, answered.</h2></div><div class="faq-grid">
+<details class="faq-item"><summary>Is the resume builder really free?</summary><p>Yes. The builder is designed to work without signup, subscription or watermark.</p></details>
+<details class="faq-item"><summary>Do I need an account?</summary><p>No. The resume builder stores your current work locally in your browser.</p></details>
+<details class="faq-item"><summary>Can I use it on my phone?</summary><p>Yes. The editor and preview are designed to work on mobile and desktop screens.</p></details>
+<details class="faq-item"><summary>Can I make an ATS-friendly resume?</summary><p>The builder uses clean text-based sections and straightforward templates intended to be easy for applicant tracking systems to parse.</p></details>
+</div></div></section>
+
+<section class="cta"><div class="wrap"><div class="cta-box"><h2>Ready to build your resume?</h2><p>Start with a clean professional layout. No account. No watermark.</p><a class="btn btn-primary" href="resume-builder.html">Open Resume Builder →</a></div></div></section>
+</main>
+<footer><div class="wrap footer-inner"><span>© 2026 GH-Tools. Free browser tools.</span><span>QR Generator · Resume Builder</span></div></footer>
+</body>
+</html>
