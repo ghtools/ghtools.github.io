@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Free Resume Builder | ResumQR</title>
+<meta name="description" content="Build a professional ATS-friendly resume with live A4 preview. Free, no signup, no watermark.">
+<link rel="canonical" href="https://ghtools.github.io/resume-builder.html">
+<meta name="robots" content="index,follow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f5f7fb;--surface:#fff;--surface2:#f8fafc;--text:#101828;--muted:#667085;--line:#e4e7ec;--brand:#4f46e5;--brand2:#4338ca;--success:#12b76a;--danger:#d92d20;--shadow:0 12px 40px rgba(16,24,40,.08);--radius:16px;--resume-font:Arial,sans-serif}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--text);font-family:"DM Sans",system-ui,sans-serif}button,input,textarea,select{font:inherit}button{cursor:pointer}
+.topbar{height:64px;background:rgba(255,255,255,.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--line);display:flex;align-items:center;padding:0 20px;position:sticky;top:0;z-index:50}.brand{font-family:"Space Grotesk";font-weight:700;font-size:20px;color:var(--text);text-decoration:none;display:flex;align-items:center;gap:9px}.brandmark{width:30px;height:30px;border-radius:9px;background:var(--brand);display:grid;place-items:center;color:white;font-weight:800}.topbar-center{margin:auto;display:flex;align-items:center;gap:8px}.save-state{font-size:12px;color:var(--muted);display:flex;align-items:center;gap:6px}.save-dot{width:7px;height:7px;border-radius:50%;background:var(--success)}.top-actions{display:flex;gap:8px}.btn{border:1px solid var(--line);background:var(--surface);color:var(--text);border-radius:10px;padding:10px 14px;font-weight:700}.btn:hover{border-color:#c8cdd5;background:var(--surface2)}.btn-primary{background:var(--brand);border-color:var(--brand);color:white}.btn-primary:hover{background:var(--brand2);border-color:var(--brand2)}.btn-icon{width:40px;height:40px;padding:0;display:grid;place-items:center}.btn-danger{color:var(--danger)}
+.app{max-width:1500px;margin:auto;padding:18px;display:grid;grid-template-columns:250px minmax(360px,520px) minmax(500px,1fr);gap:16px;min-height:calc(100vh - 64px)}
+.sidebar,.editor,.preview-panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}.sidebar{padding:16px;height:max-content;position:sticky;top:82px}.sidebar-title{font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:700;margin:5px 8px 10px}.section-nav{display:grid;gap:4px}.section-nav button{border:0;background:transparent;text-align:left;border-radius:10px;padding:11px 10px;color:#475467;font-weight:600;display:flex;align-items:center;gap:10px}.section-nav button.active{background:#eef2ff;color:var(--brand)}.section-nav .num{width:24px;height:24px;border-radius:7px;background:#f2f4f7;display:grid;place-items:center;font-size:11px}.section-nav button.active .num{background:#e0e7ff}.progress{margin:18px 8px 4px}.progress-head{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:7px}.progress-bar{height:7px;background:#eef2f6;border-radius:99px;overflow:hidden}.progress-fill{height:100%;background:linear-gradient(90deg,var(--brand),#7c3aed);width:0%;transition:width .25s}
+.editor{padding:22px;overflow:hidden}.editor-head{display:flex;justify-content:space-between;gap:10px;align-items:flex-start;margin-bottom:20px}.eyebrow{font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--brand);font-weight:800}.editor h1{font-family:"Space Grotesk";font-size:25px;margin:4px 0}.editor-sub{color:var(--muted);font-size:13px;margin:0}.section{display:none}.section.active{display:block}.field-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.field-group{margin-bottom:14px}.field-group.full{grid-column:1/-1}.label{display:flex;justify-content:space-between;gap:8px;font-size:12px;font-weight:700;color:#344054;margin-bottom:6px}.field,.textarea,.select{width:100%;border:1px solid #d0d5dd;border-radius:10px;padding:11px 12px;background:white;color:var(--text);outline:none;transition:.15s}.field:focus,.textarea:focus,.select:focus{border-color:#8b83f7;box-shadow:0 0 0 3px rgba(79,70,229,.1)}.textarea{resize:vertical;min-height:105px;line-height:1.5}.hint{font-size:11px;color:var(--muted);margin-top:5px}.section-card{border:1px solid var(--line);border-radius:13px;padding:14px;margin-bottom:12px;background:#fcfcfd}.card-head{display:flex;justify-content:space-between;gap:10px;align-items:center;margin-bottom:12px}.card-title{font-weight:800;font-size:14px}.card-actions{display:flex;gap:5px}.small-btn{border:1px solid var(--line);background:white;border-radius:8px;padding:6px 9px;font-size:11px;font-weight:700}.add{width:100%;border:1px dashed #b8bdf5;background:#f8f8ff;color:var(--brand);padding:11px;border-radius:10px;font-weight:800}.toggle-row{display:flex;align-items:center;gap:8px;font-size:12px;color:#475467}.toggle-row input{accent-color:var(--brand)}.photo-row{display:flex;gap:14px;align-items:center}.avatar{width:70px;height:70px;border-radius:14px;background:#f2f4f7;border:1px dashed #cfd4dc;object-fit:cover;display:grid;place-items:center;color:#98a2b3;overflow:hidden}.avatar img{width:100%;height:100%;object-fit:cover}.nav-buttons{display:flex;justify-content:space-between;gap:10px;margin-top:20px;padding-top:16px;border-top:1px solid var(--line)}.template-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.template-card{border:2px solid var(--line);border-radius:12px;padding:9px;background:white}.template-card.active{border-color:var(--brand);box-shadow:0 0 0 3px rgba(79,70,229,.08)}.template-thumb{height:105px;border-radius:7px;background:#f3f4f6;padding:10px;display:flex;gap:7px;overflow:hidden}.thumb-side{width:25%;background:#202938}.thumb-main{flex:1}.thumb-line{height:4px;background:#cbd5e1;border-radius:5px;margin:5px 0}.thumb-line.short{width:60%}.template-name{font-size:12px;font-weight:800;margin-top:8px}.color-row{display:flex;gap:8px;flex-wrap:wrap}.color-dot{width:30px;height:30px;border-radius:50%;border:3px solid white;box-shadow:0 0 0 1px #d0d5dd}.color-dot.active{box-shadow:0 0 0 2px var(--brand)}
+.preview-panel{background:#eef1f6;display:flex;flex-direction:column;min-width:0;overflow:hidden}.preview-toolbar{height:58px;background:white;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 14px;gap:10px}.preview-label{font-weight:800;font-size:13px}.toolbar-group{display:flex;align-items:center;gap:6px}.zoom-value{font-size:12px;color:var(--muted);min-width:48px;text-align:center}.preview-scroll{flex:1;overflow:auto;padding:30px;display:flex;justify-content:center;align-items:flex-start}.paper-wrap{transform-origin:top center}.paper{width:794px;min-height:1123px;background:#fff;color:#172033;box-shadow:0 12px 40px rgba(16,24,40,.16);padding:56px 58px;font-family:var(--resume-font);position:relative}.paper h2{margin:0;font-size:30px;line-height:1.08;letter-spacing:-.03em}.paper .headline{font-size:14px;color:var(--accent);font-weight:700;margin-top:6px}.contact{font-size:10.5px;color:#667085;margin-top:9px;line-height:1.6}.resume-section{margin-top:24px}.resume-section h3{font-size:10px;text-transform:uppercase;letter-spacing:.13em;color:var(--accent);border-bottom:1px solid #dfe3e8;padding-bottom:5px;margin:0 0 11px;font-weight:800}.summary{font-size:10.5px;line-height:1.6;color:#475467}.resume-entry{margin-bottom:13px}.entry-top{display:flex;justify-content:space-between;gap:15px;font-size:11px;font-weight:800}.entry-date{font-weight:600;color:#667085;white-space:nowrap}.entry-sub{font-size:10px;color:#667085;margin-top:2px}.entry-desc{font-size:10px;color:#475467;line-height:1.55;margin:5px 0 0;white-space:pre-line}.skills{display:flex;flex-wrap:wrap;gap:5px}.skill{font-size:9px;padding:4px 7px;border-radius:5px;background:#f2f4f7;color:#344054}.paper-modern .paper-head{border-left:4px solid var(--accent);padding-left:14px}.paper-classic{font-family:Georgia,serif}.paper-classic .paper-head{text-align:center;border-bottom:2px solid #222;padding-bottom:18px}.paper-classic .headline,.paper-classic .resume-section h3{color:#222}.paper-minimal{padding:62px 70px}.paper-minimal .resume-section h3{border:0;color:#98a2b3;padding:0}.paper-sidebar{padding:0}.paper-sidebar .side{width:205px;background:#172033;color:white;position:absolute;left:0;top:0;bottom:0;padding:55px 24px}.paper-sidebar .main{margin-left:235px;padding:55px 45px 55px 25px}.paper-sidebar .side h2{font-size:25px}.paper-sidebar .side .headline,.paper-sidebar .side .contact{color:#d0d5dd}.paper-sidebar .side h3{color:#a5b4fc;border-bottom:0}.paper-sidebar .main h3{color:var(--accent)}.photo{width:74px;height:74px;border-radius:50%;object-fit:cover;position:absolute;right:58px;top:55px;border:3px solid white}.preview-empty{display:none}.mobile-tabs{display:none}
+.toast{position:fixed;right:20px;bottom:20px;background:#101828;color:white;padding:12px 15px;border-radius:10px;box-shadow:var(--shadow);font-size:13px;z-index:100;animation:in .2s ease}@keyframes in{from{transform:translateY(8px);opacity:0}to{transform:none;opacity:1}}
+@media(max-width:1100px){.app{grid-template-columns:210px minmax(330px,1fr);}.preview-panel{grid-column:1/-1;min-height:700px}.sidebar{position:static}.preview-scroll{min-height:650px}}
+@media(max-width:760px){.topbar{padding:0 12px;height:58px}.topbar-center{display:none}.top-actions .secondary{display:none}.app{display:block;padding:0}.sidebar,.editor,.preview-panel{border-radius:0;border-left:0;border-right:0;box-shadow:none}.sidebar{position:sticky;top:58px;z-index:20;padding:8px;border-bottom:1px solid var(--line)}.sidebar-title,.progress{display:none}.section-nav{display:flex;overflow:auto;gap:4px}.section-nav button{white-space:nowrap;padding:8px 9px;font-size:11px}.section-nav .num{display:none}.editor{padding:16px}.editor-head{margin-bottom:15px}.editor h1{font-size:21px}.field-grid{grid-template-columns:1fr}.field-group.full{grid-column:auto}.preview-panel{margin-top:12px}.preview-toolbar{position:sticky;top:0;z-index:10}.preview-scroll{padding:18px 8px;min-height:600px}.paper{width:794px;min-height:1123px}.preview-panel .paper-wrap{transform:scale(.48);transform-origin:top center;margin-bottom:-580px}.mobile-tabs{display:flex;position:sticky;bottom:0;z-index:40;background:white;border-top:1px solid var(--line)}.mobile-tabs button{flex:1;border:0;background:white;padding:12px;font-weight:800;color:var(--muted)}.mobile-tabs button.active{color:var(--brand)}.mobile-editor-hidden{display:none!important}.mobile-preview-hidden{display:none!important}.template-grid{grid-template-columns:1fr 1fr}}
+@media print{
+  @page{size:A4;margin:0}
+  html,body{background:white!important}
+  body.print-root>*{display:none!important}
+  body.print-root #app{display:block!important;margin:0!important;padding:0!important;min-height:0!important}
+  body.print-root #previewPanel{display:block!important;border:0!important;border-radius:0!important;box-shadow:none!important;background:white!important}
+  body.print-root #previewPanel .preview-toolbar,
+  body.print-root #previewPanel .preview-scroll{display:block!important}
+  body.print-root #previewPanel .preview-toolbar{display:none!important}
+  body.print-root #previewPanel .preview-scroll{padding:0!important;overflow:visible!important;min-height:0!important}
+  body.print-root .paper-wrap{transform:none!important;margin:0!important}
+  body.print-root .paper{display:block!important;width:210mm!important;min-height:297mm!important;height:auto!important;box-shadow:none!important;margin:0!important;padding:15mm!important}
+  body.print-root .paper-sidebar .side{display:block!important}
+  body.print-root .paper-sidebar .main{display:block!important}
+}
+</style>
+</head>
+<body>
+<header class="topbar">
+<a class="brand" href="index.html"><span class="brandmark">R</span>ResumQR</a>
+<div class="topbar-center"><span class="save-state"><span class="save-dot"></span><span id="saveText">Saved locally</span></span></div>
+<div class="top-actions"><button class="btn secondary" id="newResume">New</button><button class="btn btn-primary" id="savePdf">Save as PDF</button></div>
+</header>
+
+<main class="app" id="app">
+<aside class="sidebar">
+<div class="sidebar-title">Resume sections</div>
+<div class="section-nav" id="sectionNav"></div>
+<div class="progress"><div class="progress-head"><span>Completion</span><strong id="progressText">0%</strong></div><div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div></div>
+</aside>
+
+<section class="editor" id="editor">
+<div class="editor-head"><div><div class="eyebrow">Resume Builder</div><h1 id="editorTitle">Personal information</h1><p class="editor-sub">Build your resume one section at a time.</p></div></div>
+
+<div class="section active" data-section="personal">
+<div class="field-grid">
+<div class="field-group full"><label class="label">Full name *</label><input class="field" id="name" placeholder="e.g. John Doe"></div>
+<div class="field-group"><label class="label">Professional title</label><input class="field" id="headline" placeholder="e.g. Software Engineer"></div>
+<div class="field-group"><label class="label">Email</label><input class="field" id="email" type="email" placeholder="you@example.com"></div>
+<div class="field-group"><label class="label">Phone</label><input class="field" id="phone" placeholder="+1 555 123 4567"></div>
+<div class="field-group"><label class="label">Location</label><input class="field" id="location" placeholder="City, Country"></div>
+<div class="field-group"><label class="label">Website</label><input class="field" id="website" placeholder="yourwebsite.com"></div>
+<div class="field-group full"><label class="label">Profile photo <span>Optional</span></label><div class="photo-row"><div class="avatar" id="avatar">Photo</div><input class="field" id="photo" type="file" accept="image/png,image/jpeg,image/webp"></div></div>
+</div>
+</div>
+
+<div class="section" data-section="summary">
+<div class="field-group"><label class="label">Professional summary</label><textarea class="textarea" id="summary" maxlength="700" placeholder="Write 2–4 sentences that summarize your experience, strengths and career direction."></textarea><div class="hint"><span id="summaryCount">0</span>/700</div></div>
+</div>
+
+<div class="section" data-section="experience">
+<div id="experienceList"></div><button class="add" id="addExperience">+ Add work experience</button>
+</div>
+
+<div class="section" data-section="education">
+<div id="educationList"></div><button class="add" id="addEducation">+ Add education</button>
+</div>
+
+<div class="section" data-section="skills">
+<div class="field-group"><label class="label">Skills</label><textarea class="textarea" id="skills" placeholder="JavaScript, Excel, Customer Service, Project Management"></textarea><div class="hint">Separate skills with commas.</div></div>
+</div>
+
+<div class="section" data-section="projects">
+<div id="projectsList"></div><button class="add" id="addProject">+ Add project</button>
+</div>
+
+<div class="section" data-section="certifications">
+<div id="certificationsList"></div><button class="add" id="addCertification">+ Add certification</button>
+</div>
+
+<div class="section" data-section="languages">
+<div id="languagesList"></div><button class="add" id="addLanguage">+ Add language</button>
+</div>
+
+<div class="section" data-section="design">
+<div class="field-group"><label class="label">Template</label><div class="template-grid" id="templates">
+<div class="template-card active" data-template="modern"><div class="template-thumb"><div class="thumb-main"><div class="thumb-line" style="width:70%"></div><div class="thumb-line short"></div><div class="thumb-line"></div><div class="thumb-line"></div></div></div><div class="template-name">Modern</div></div>
+<div class="template-card" data-template="classic"><div class="template-thumb"><div class="thumb-main"><div class="thumb-line" style="width:80%"></div><div class="thumb-line short"></div><div class="thumb-line"></div><div class="thumb-line"></div></div></div><div class="template-name">Classic</div></div>
+<div class="template-card" data-template="minimal"><div class="template-thumb"><div class="thumb-main"><div class="thumb-line" style="width:55%"></div><div class="thumb-line short"></div><div class="thumb-line"></div><div class="thumb-line"></div></div></div><div class="template-name">Minimal</div></div>
+<div class="template-card" data-template="sidebar"><div class="template-thumb"><div class="thumb-side"></div><div class="thumb-main"><div class="thumb-line"></div><div class="thumb-line short"></div><div class="thumb-line"></div></div></div><div class="template-name">Executive</div></div>
+</div></div>
+<div class="field-group"><label class="label">Accent color</label><div class="color-row" id="colors"></div></div>
+<div class="field-grid">
+<div class="field-group"><label class="label">Font</label><select class="select" id="font"><option value="Arial,sans-serif">Arial</option><option value="Inter,Arial,sans-serif">Inter</option><option value="Georgia,serif">Georgia</option></select></div>
+<div class="field-group"><label class="label">Page</label><select class="select" id="pageSize"><option>A4</option><option>Letter</option></select></div>
+</div>
+</div>
+
+<div class="nav-buttons"><button class="btn" id="prev">← Previous</button><button class="btn btn-primary" id="next">Next →</button></div>
+</section>
+
+<section class="preview-panel" id="previewPanel">
+<div class="preview-toolbar"><span class="preview-label">Live A4 preview</span><div class="toolbar-group"><button class="btn btn-icon" id="zoomOut">−</button><span class="zoom-value" id="zoom">70%</span><button class="btn btn-icon" id="zoomIn">+</button></div></div>
+<div class="preview-scroll" id="previewScroll"><div class="paper-wrap" id="paperWrap"></div></div>
+</section>
+</main>
+<div class="mobile-tabs"><button class="active" id="editTab">Edit</button><button id="previewTab">Preview</button></div>
+<div id="toastRoot"></div>
+
+<script>
+(()=>{"use strict";
+const KEY="resumqr-resume-v2";
+const sections=[["personal","Personal","1"],["summary","Summary","2"],["experience","Experience","3"],["education","Education","4"],["skills","Skills","5"],["projects","Projects","6"],["certifications","Certifications","7"],["languages","Languages","8"],["design","Design","9"]];
+let current=0, zoom=0.7, photoData="";
+let data={name:"",headline:"",email:"",phone:"",location:"",website:"",summary:"",skills:"",experience:[],education:[],projects:[],certifications:[],languages:[],template:"modern",accent:"#4F46E5",font:"Arial,sans-serif",pageSize:"A4"};
+
+const $=id=>document.getElementById(id);
+const esc=s=>String(s??"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/\"/g,"&quot;").replace(/'/g,"&#39;");
+function toast(msg){const t=document.createElement("div");t.className="toast";t.textContent=msg;$("toastRoot").appendChild(t);setTimeout(()=>t.remove(),2500)}
+function save(){try{localStorage.setItem(KEY,JSON.stringify({...data,photo:photoData}));$("saveText").textContent="Saved locally";}catch(e){}}
+function load(){try{const x=JSON.parse(localStorage.getItem(KEY));if(x){data={...data,...x};photoData=x.photo||"";}}catch(e){}}
+function renderNav(){const n=$("sectionNav");n.innerHTML="";sections.forEach((s,i)=>{const b=document.createElement("button");b.className=i===current?"active":"";b.innerHTML='<span class="num">'+s[2]+"</span>"+s[1];b.onclick=()=>go(i);n.appendChild(b)})}
+function go(i){current=Math.max(0,Math.min(sections.length-1,i));document.querySelectorAll(".section").forEach((s,n)=>s.classList.toggle("active",n===current));renderNav();$("editorTitle").textContent=sections[current][1];$("prev").disabled=current===0;$("next").textContent=current===sections.length-1?"Finish ✓":"Next →";window.scrollTo({top:0,behavior:"smooth"})}
+function val(id){return $(id)?.value||""}
+function bind(){["name","headline","email","phone","location","website","summary","skills","font","pageSize"].forEach(id=>$(id).addEventListener("input",()=>{data[id]=val(id);if(id==="summary")$("summaryCount").textContent=data.summary.length;render();save();updateProgress()}));$("font").addEventListener("change",()=>{data.font=val("font");render();save()});$("pageSize").addEventListener("change",()=>{data.pageSize=val("pageSize");render();save()})}
+function fill(){["name","headline","email","phone","location","website","summary","skills","font","pageSize"].forEach(id=>{if($(id))$(id).value=data[id]||$(id).value});$("summaryCount").textContent=data.summary.length;$("avatar").innerHTML=photoData?'<img src="'+photoData+'" alt="">':"Photo";document.querySelectorAll(".template-card").forEach(x=>x.classList.toggle("active",x.dataset.template===data.template));renderColors();renderLists()}
+function renderColors(){const c=["#4F46E5","#2563EB","#0891B2","#0F766E","#B42318","#7A5AF8","#344054","#111827"];const r=$("colors");r.innerHTML="";c.forEach(x=>{const b=document.createElement("button");b.className="color-dot"+(x===data.accent?" active":"");b.style.background=x;b.title=x;b.onclick=()=>{data.accent=x;renderColors();render();save()};r.appendChild(b)})}
+function input(label,value,cls=""){return '<div class="field-group"><label class="label">'+label+'</label><input class="field '+cls+'" value="'+esc(value).replace(/"/g,"&quot;")+'"></div>'}
+function textarea(label,value,cls=""){return '<div class="field-group full"><label class="label">'+label+'</label><textarea class="textarea '+cls+'">'+esc(value)+'</textarea></div>'}
+function card(list,type,title,fields){const root=$(list);root.innerHTML="";data[type].forEach((item,i)=>{const c=document.createElement("div");c.className="section-card";let body="";fields.forEach(f=>body+=f.kind==="textarea"?textarea(f.label,item[f.key]||"",f.key):input(f.label,item[f.key]||"",f.key));c.innerHTML='<div class="card-head"><span class="card-title">'+title+" "+(i+1)+'</span><div class="card-actions"><button class="small-btn up">↑</button><button class="small-btn down">↓</button><button class="small-btn btn-danger del">Delete</button></div></div><div class="field-grid">'+body+"</div>";c.querySelector(".del").onclick=()=>{data[type].splice(i,1);renderLists();render();save();updateProgress()};c.querySelector(".up").onclick=()=>{if(i){[data[type][i-1],data[type][i]]=[data[type][i],data[type][i-1]];renderLists();render();save()}};c.querySelector(".down").onclick=()=>{if(i<data[type].length-1){[data[type][i+1],data[type][i]]=[data[type][i],data[type][i+1]];renderLists();render();save()}};c.querySelectorAll("input,textarea").forEach((el,j)=>el.oninput=()=>{const key=fields[j].key;data[type][i][key]=el.value;render();save();updateProgress()});root.appendChild(c)})}
+function renderLists(){card("experienceList","experience","Experience",[{label:"Job title",key:"title"},{label:"Company",key:"company"},{label:"Location",key:"location"},{label:"Dates",key:"dates"},{label:"Description",key:"description",kind:"textarea"}]);card("educationList","education","Education",[{label:"Degree / qualification",key:"degree"},{label:"School / institution",key:"school"},{label:"Location",key:"location"},{label:"Dates",key:"dates"}]);card("projectsList","projects","Project",[{label:"Project name",key:"title"},{label:"Link",key:"link"},{label:"Description",key:"description",kind:"textarea"}]);card("certificationsList","certifications","Certification",[{label:"Certificate",key:"title"},{label:"Issuer",key:"issuer"},{label:"Year",key:"year"}]);card("languagesList","languages","Language",[{label:"Language",key:"name"},{label:"Level",key:"level"}])}
+function add(type,obj){data[type].push(obj);renderLists();render();save();updateProgress()}
+function bullets(text){return esc(text).replace(/\n/g,"<br>")}
+function section(title,html){return html?'<section class="resume-section"><h3>'+title+"</h3>"+html+"</section>":""}
+function entry(x,sub){return '<div class="resume-entry"><div class="entry-top"><span>'+esc(x.title||"")+'</span><span class="entry-date">'+esc(x.dates||"")+'</span></div><div class="entry-sub">'+esc(sub||"")+'</div><p class="entry-desc">'+bullets(x.description||"")+"</p></div>"}
+function render(){const exp=data.experience.map(x=>entry(x,(x.company||"")+(x.location?" · "+x.location:""))).join("");const edu=data.education.map(x=>entry(x,(x.school||"")+(x.location?" · "+x.location:""))).join("");const proj=data.projects.map(x=>'<div class="resume-entry"><div class="entry-top"><span>'+esc(x.title)+'</span><span class="entry-date">'+esc(x.link)+'</span></div><p class="entry-desc">'+bullets(x.description)+'</p></div>').join("");const cert=data.certifications.map(x=>'<div class="resume-entry"><div class="entry-top"><span>'+esc(x.title)+'</span><span class="entry-date">'+esc(x.year)+'</span></div><div class="entry-sub">'+esc(x.issuer)+'</div></div>').join("");const langs=data.languages.map(x=>'<div class="resume-entry"><div class="entry-top"><span>'+esc(x.name)+'</span><span class="entry-date">'+esc(x.level)+'</span></div></div>').join("");const skills=data.skills.split(",").map(x=>x.trim()).filter(Boolean).map(x=>'<span class="skill">'+esc(x)+"</span>").join("");let head='<div class="paper-head">'+(photoData?'<img class="photo" src="'+photoData+'" alt="">':"")+'<h2>'+esc(data.name||"Your Name")+'</h2><div class="headline">'+esc(data.headline||"Professional Title")+'</div><div class="contact">'+[data.email,data.phone,data.location,data.website].filter(Boolean).map(esc).join(" · ")+"</div></div>";let content=section("Profile",'<div class="summary">'+bullets(data.summary)+'</div>')+section("Experience",exp)+section("Education",edu)+section("Skills",skills?'<div class="skills">'+skills+"</div>":"")+section("Projects",proj)+section("Certifications",cert)+section("Languages",langs);let paper='<div class="paper paper-'+data.template+'" style="--accent:'+data.accent+'">'+(data.template==="sidebar"?'<div class="side">'+head+'</div><div class="main">'+content+"</div>":head+content)+"</div>";$("paperWrap").innerHTML=paper;$("paperWrap").style.transform="scale("+zoom+")";$("zoom").textContent=Math.round(zoom*100)+"%"}
+function updateProgress(){let checks=[data.name,data.headline,data.email,data.phone,data.location,data.summary,data.experience.length,data.education.length,data.skills];let score=Math.round(checks.filter(Boolean).length/checks.length*100);$("progressFill").style.width=score+"%";$("progressText").textContent=score+"%"}
+$("addExperience").onclick=()=>add("experience",{title:"",company:"",location:"",dates:"",description:""});$("addEducation").onclick=()=>add("education",{degree:"",school:"",location:"",dates:""});$("addProject").onclick=()=>add("projects",{title:"",link:"",description:""});$("addCertification").onclick=()=>add("certifications",{title:"",issuer:"",year:""});$("addLanguage").onclick=()=>add("languages",{name:"",level:""});
+$("prev").onclick=()=>go(current-1);$("next").onclick=()=>current===sections.length-1?toast("Your resume is ready to review."):go(current+1);
+document.querySelectorAll(".template-card").forEach(x=>x.onclick=()=>{data.template=x.dataset.template;document.querySelectorAll(".template-card").forEach(y=>y.classList.remove("active"));x.classList.add("active");render();save()});
+$("zoomIn").onclick=()=>{zoom=Math.min(1,zoom+.05);render()};$("zoomOut").onclick=()=>{zoom=Math.max(.45,zoom-.05);render()};
+$("savePdf").onclick=()=>{render();document.body.classList.add("print-root");window.print();setTimeout(()=>document.body.classList.remove("print-root"),1000)};
+$("newResume").onclick=()=>{if(confirm("Start a new resume? Your saved draft will be replaced.")){localStorage.removeItem(KEY);location.reload()}};
+$("photo").onchange=e=>{const f=e.target.files[0];if(!f)return;if(f.size>4*1024*1024){toast("Photo must be under 4 MB.");return}const r=new FileReader();r.onload=()=>{photoData=r.result;$("avatar").innerHTML='<img src="'+photoData+'" alt="">';render();save()};r.readAsDataURL(f)};
+$("editTab").onclick=()=>{ $("editor").classList.remove("mobile-editor-hidden");$("previewPanel").classList.add("mobile-preview-hidden");$("editTab").classList.add("active");$("previewTab").classList.remove("active")};
+$("previewTab").onclick=()=>{ $("editor").classList.add("mobile-editor-hidden");$("previewPanel").classList.remove("mobile-preview-hidden");$("previewTab").classList.add("active");$("editTab").classList.remove("active")};
+load();bind();fill();renderNav();render();updateProgress();
+})();
+</script>
+</body>
+</html>
